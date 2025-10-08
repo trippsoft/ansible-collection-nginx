@@ -11,8 +11,8 @@ argument_specs:
         required: false
         default: '1.24'
         description:
-          - The version of NGINX to install via AppStream packages on EL systems.
-          - On non-EL systems, this is ignored.
+          - The version of NGINX to install via AppStream packages on EL 8 and 9 systems.
+          - On other systems, this is ignored.
           - See https://access.redhat.com/support/policy/updates/rhel-app-streams-life-cycle for the list of available versions for each EL major version.
       nginx_configure_selinux:
         type: bool

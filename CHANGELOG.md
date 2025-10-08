@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0] - 2025-10-08
+
+### Role - oss
+
+- Added support for Debian 13.
+- Added support for EL 10.
+
 ## [1.1.4] - 2025-06-11
 
 ### Collection

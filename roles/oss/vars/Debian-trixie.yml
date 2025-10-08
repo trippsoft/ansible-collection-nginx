@@ -1,0 +1,22 @@
+---
+_nginx_os_is_supported: true
+_nginx_os_is_tested: true
+
+_nginx_use_appstream: false
+
+_nginx_package:
+  - nginx
+
+_nginx_default_firewall_type: firewalld
+
+_nginx_default_configure_selinux: false
+
+_nginx_selinux_packages:
+  - python3-selinux
+  - python3-semanage
+
+_nginx_default_user: www-data
+_nginx_default_group: www-data
+
+_nginx_default_ssl_certificate_directory: /etc/ssl/certs
+_nginx_default_ssl_certificate_key_directory: /etc/ssl/private
