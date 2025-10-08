@@ -1,7 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 
 # Ansible Role: trippsc2.nginx.oss
-Version: 1.1.4
+Version: 1.2.0
 
 This role configures NGINX OSS on Linux machines.
 
@@ -9,8 +9,8 @@ This role configures NGINX OSS on Linux machines.
 
 | Platform | Versions |
 | -------- | -------- |
-| Debian | <ul><li>bookworm</li></ul> |
-| EL | <ul><li>9</li><li>8</li></ul> |
+| Debian | <ul><li>trixie</li><li>bookworm</li></ul> |
+| EL | <ul><li>10</li><li>9</li><li>8</li></ul> |
 | Ubuntu | <ul><li>noble</li><li>jammy</li></ul> |
 
 ## Dependencies
@@ -24,7 +24,7 @@ This role configures NGINX OSS on Linux machines.
 ## Role Arguments
 |Option|Description|Type|Required|Choices|Default|
 |---|---|---|---|---|---|
-| nginx_appstream_version | <p>The version of NGINX to install via AppStream packages on EL systems.</p><p>On non-EL systems, this is ignored.</p><p>See https://access.redhat.com/support/policy/updates/rhel-app-streams-life-cycle for the list of available versions for each EL major version.</p> | str | no |  | 1.24 |
+| nginx_appstream_version | <p>The version of NGINX to install via AppStream packages on EL 8 and 9 systems.</p><p>On other systems, this is ignored.</p><p>See https://access.redhat.com/support/policy/updates/rhel-app-streams-life-cycle for the list of available versions for each EL major version.</p> | str | no |  | 1.24 |
 | nginx_configure_selinux | <p>Whether to configure SELinux.</p><p>Packages required to managed SELinux are installed if this is set to `true`.</p><p>For Debian-based systems, this will default to `false`.</p><p>For EL systems, this will default to `true`.</p> | bool | no |  |  |
 | nginx_configure_firewall | <p>Whether to configure a host firewall software for use with NGINX.</p> | bool | no |  | True |
 | nginx_configure_logrotate | <p>Whether to configure logrotate to manage nginx log files.</p> | bool | no |  | True |
