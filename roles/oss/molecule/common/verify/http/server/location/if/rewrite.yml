@@ -1,5 +1,5 @@
 ---
-- name: Check if rewrite_log directive is set in location if block
+- name: Check if rewrite_log directive is set in location if block # noqa jinja[spacing]
   when:
     - _location_if_block.rewrite_log is defined
   become: true
@@ -24,7 +24,7 @@
     fail_msg: rewrite_log directive is not set in location if block.
     success_msg: rewrite_log directive is set in location if block.
 
-- name: Check if uninitialized_variable_warn directive is set in location if block
+- name: Check if uninitialized_variable_warn directive is set in location if block # noqa jinja[spacing]
   when:
     - _location_if_block.uninitialized_variable_warn is defined
   become: true
@@ -49,7 +49,7 @@
     fail_msg: uninitialized_variable_warn directive is not set in location if block.
     success_msg: uninitialized_variable_warn directive is set in location if block.
 
-- name: Check if return directive is set in location if block
+- name: Check if return directive is set in location if block # noqa jinja[spacing]
   when:
     - _location_if_block.return is defined
   become: true

@@ -2,7 +2,7 @@
 - name: Check if auth_jwt directive is set in HTTP config file (off)
   when:
     - _http_config_file.auth_jwt is defined
-    - _http_config_file.auth_jwt.off | default(false) 
+    - _http_config_file.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:
@@ -26,7 +26,7 @@
 - name: Check if auth_jwt directive is set in HTTP config file
   when:
     - _http_config_file.auth_jwt is defined
-    - not _http_config_file.auth_jwt.off | default(false) 
+    - not _http_config_file.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:

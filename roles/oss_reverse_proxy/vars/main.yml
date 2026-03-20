@@ -47,7 +47,7 @@ _nginxproxy_http_config_files:
           - port: 443
             ssl: true
             http2: true
-        server_name: 
+        server_name:
           - "{{ nginxproxy_server_name }}"
         server_tokens: 'off'
         ssl_certificate:

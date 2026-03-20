@@ -1260,7 +1260,7 @@
       - not _types_hash_max_size_directive.changed
     fail_msg: types_hash_max_size directive is not set in HTTP config file.
     success_msg: types_hash_max_size directive is set in HTTP config file.
-  
+
 - name: Check if client_header_buffer_size directive is set in HTTP config file
   when:
     - _http_config_file.client_header_buffer_size is defined

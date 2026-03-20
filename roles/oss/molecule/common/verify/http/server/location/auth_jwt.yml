@@ -2,7 +2,7 @@
 - name: Check if auth_jwt directive is set in location block (off)
   when:
     - _location_block.auth_jwt is defined
-    - _location_block.auth_jwt.off | default(false) 
+    - _location_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:
@@ -29,7 +29,7 @@
 - name: Check if auth_jwt directive is set in location block
   when:
     - _location_block.auth_jwt is defined
-    - not _location_block.auth_jwt.off | default(false) 
+    - not _location_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:

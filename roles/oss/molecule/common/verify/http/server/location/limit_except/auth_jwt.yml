@@ -2,7 +2,7 @@
 - name: Check if auth_jwt directive is set in limit_except block (off)
   when:
     - _limit_except_block.auth_jwt is defined
-    - _limit_except_block.auth_jwt.off | default(false) 
+    - _limit_except_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:
@@ -27,7 +27,7 @@
 - name: Check if auth_jwt directive is set in limit_except block
   when:
     - _limit_except_block.auth_jwt is defined
-    - not _limit_except_block.auth_jwt.off | default(false) 
+    - not _limit_except_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:

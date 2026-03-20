@@ -21,7 +21,7 @@
         name: "{{ nginx_group }}"
         state: present
         system: true
-    
+
     - name: Create NGINX user
       become: true
       ansible.builtin.user:
@@ -34,7 +34,7 @@
         home: /usr/share/nginx
         shell: /usr/sbin/nologin
         createhome: false
-    
+
     - name: Create NGINX client cache directory
       become: true
       ansible.builtin.file:

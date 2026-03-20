@@ -2,7 +2,7 @@
 - name: Check if auth_jwt directive is set in server block (off)
   when:
     - _server_block.auth_jwt is defined
-    - _server_block.auth_jwt.off | default(false) 
+    - _server_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:
@@ -27,7 +27,7 @@
 - name: Check if auth_jwt directive is set in server block
   when:
     - _server_block.auth_jwt is defined
-    - not _server_block.auth_jwt.off | default(false) 
+    - not _server_block.auth_jwt.off | default(false)
   become: true
   check_mode: true
   ansible.builtin.lineinfile:
