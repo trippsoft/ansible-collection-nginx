@@ -23,16 +23,54 @@ jobs:
     name: Generate oss role documentation
     permissions:
       contents: write
-    uses: trippsoft/github-actions/.github/workflows/role-docs.yml@main
-    with:
-      working_directory: 'trippsc2.nginx'
-      role_name: 'oss'
+    runs-on:
+      - self-hosted
+      - linux
+      - ansible
+      - x64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          path: trippsc2.nginx
+          ref: main
+      - name: Generate oss role documentation
+        working-directory: 'trippsc2.nginx'
+        run: |
+          source ~/venv/ansible-2.16/bin/activate
+          cd ./roles/oss
+          aar-doc . markdown
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git add README.md || /bin/true
+          git commit -m "Update oss role documentation." || /bin/true
+          git push origin main
+          deactivate
   docs_oss_reverse_proxy:
     name: Generate oss_reverse_proxy role documentation
+    needs: docs_oss
     permissions:
       contents: write
-    needs: docs_oss
-    uses: trippsoft/github-actions/.github/workflows/role-docs.yml@main
-    with:
-      working_directory: 'trippsc2.nginx'
-      role_name: 'oss_reverse_proxy'
+    runs-on:
+      - self-hosted
+      - linux
+      - ansible
+      - x64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          path: trippsc2.nginx
+          ref: main
+      - name: Generate oss_reverse_proxy role documentation
+        working-directory: 'trippsc2.nginx'
+        run: |
+          source ~/venv/ansible-2.16/bin/activate
+          cd ./roles/oss_reverse_proxy
+          aar-doc . markdown
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@github.com"
+          git add README.md || /bin/true
+          git commit -m "Update oss_reverse_proxy role documentation." || /bin/true
+          git push origin main
+          deactivate
