@@ -1,13 +1,13 @@
 ---
 _nginx_os_is_supported: true
-_nginx_os_is_tested: false
+_nginx_os_is_tested: true
 
 _nginx_use_appstream: false
 
 _nginx_package:
   - nginx
 
-_nginx_default_firewall_type: firewalld
+_nginx_default_firewall_type: ufw
 
 _nginx_default_configure_selinux: false
 

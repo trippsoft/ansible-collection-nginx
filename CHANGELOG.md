@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0] - 2026-06-02
+
+### Role - oss
+
+- Added support for Ubuntu 26.04.
+
 ## [1.2.0] - 2025-10-08
 
 ### Role - oss
