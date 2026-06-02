@@ -3,6 +3,13 @@
   hosts:
     - subjects
   pre_tasks:
+    - name: Update apt cache
+      when:
+        - ansible_os_family == 'Debian'
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: Set OS specific variables (Debian-based)
       when:
         - ansible_os_family == 'Debian'

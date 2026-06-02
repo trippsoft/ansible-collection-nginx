@@ -3,6 +3,13 @@
   hosts:
     - subjects
   pre_tasks:
+    - name: Update apt cache
+      when:
+        - ansible_os_family == 'Debian'
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: Set NGINX user variable
       when:
         - nginx_user is not defined

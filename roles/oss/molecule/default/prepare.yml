@@ -1,0 +1,11 @@
+---
+- name: Prepare
+  hosts:
+    - subjects
+  tasks:
+    - name: Update apt cache
+      when:
+        - ansible_os_family == 'Debian'
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
