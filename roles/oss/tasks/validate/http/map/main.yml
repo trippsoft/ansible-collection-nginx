@@ -2,14 +2,14 @@
 - name: Validate string in map block
   ansible.builtin.assert:
     that:
-      - _nginx_map_block.string | regex_search('^\$[a-zA-Z0-9_]+$')
+      - _nginx_map_block.string is search('^\$[a-zA-Z0-9_]+$')
     fail_msg: "Directive 'string' in 'map' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ _nginx_map_block.string }}"
     success_msg: "Directive 'string' in 'map' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ _nginx_map_block.string }}"
 
 - name: Validate variable in map block
   ansible.builtin.assert:
     that:
-      - _nginx_map_block.variable | regex_search('^\$[a-zA-Z0-9_]+$')
+      - _nginx_map_block.variable is search('^\$[a-zA-Z0-9_]+$')
     fail_msg: "Directive 'variable' in 'map' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ _nginx_map_block.variable }}"
     success_msg: "Directive 'variable' in 'map' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ _nginx_map_block.variable }}"
 

@@ -1,11 +1,11 @@
 ---
 - name: Gathering Facts
   when:
-    - ansible_distribution is not defined or
-      ansible_distribution_major_version is not defined or
-      ansible_distribution_release is not defined or
-      ansible_distribution_version is not defined or
-      ansible_os_family is not defined
+    - ansible_facts.distribution is not defined or
+      ansible_facts.distribution_major_version is not defined or
+      ansible_facts.distribution_release is not defined or
+      ansible_facts.distribution_version is not defined or
+      ansible_facts.os_family is not defined
   ansible.builtin.setup:
     gather_subset:
       - '!all'
@@ -22,11 +22,11 @@
     _file: "{{ lookup('first_found', _params) }}"
     _params:
       files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_release | default('') }}.yml"
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_os_family }}.yml"
+        - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_release | default('') }}.yml"
+        - "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version }}.yml"
+        - "{{ ansible_facts.distribution }}.yml"
+        - "{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml"
+        - "{{ ansible_facts.os_family }}.yml"
         - fallback.yml
       paths:
         - "{{ role_path }}/vars"
@@ -35,20 +35,20 @@
   ansible.builtin.assert:
     that:
       - _nginx_os_is_supported
-    fail_msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported."
-    success_msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} is from a supported OS family."
+    fail_msg: "{{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} is not supported."
+    success_msg: "{{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} is from a supported OS family."
 
 - name: Indicate OS is tested
   when:
     - _nginx_os_is_tested
   ansible.builtin.debug:
-    msg: "{{ ansible_distribution }} {{ ansible_distribution_version }} has been tested with this role."
+    msg: "{{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} has been tested with this role."
 
 - name: Warn if OS is not tested
   when:
     - not _nginx_os_is_tested
   ansible.builtin.debug:
-    msg: "WARNING: {{ ansible_distribution }} {{ ansible_distribution_version }} is not tested."
+    msg: "WARNING: {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }} is not tested."
   changed_when: true
 
 - name: Validate AppStream version
@@ -57,8 +57,8 @@
   ansible.builtin.assert:
     that:
       - nginx_appstream_version in _nginx_appstream_allowed_versions
-    fail_msg: "NGINX {{ nginx_appstream_version }} is not supported on {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
-    success_msg: "NGINX {{ nginx_appstream_version }} is supported on {{ ansible_distribution }} {{ ansible_distribution_major_version }}."
+    fail_msg: "NGINX {{ nginx_appstream_version }} is not supported on {{ ansible_facts.distribution }} {{ ansible_facts.distribution_major_version }}."
+    success_msg: "NGINX {{ nginx_appstream_version }} is supported on {{ ansible_facts.distribution }} {{ ansible_facts.distribution_major_version }}."
 
 - name: Get OS users
   when:
@@ -101,7 +101,7 @@
     - nginx_configure_logrotate
   ansible.builtin.assert:
     that:
-      - nginx_logrotate_mode | regex_search('^0[0-7]{3}$')
+      - nginx_logrotate_mode is search('^0[0-7]{3}$')
     fail_msg: "Logrotate mode '{{ nginx_logrotate_mode }}' is not a valid file mode."
     success_msg: "Logrotate mode '{{ nginx_logrotate_mode }}' is a valid file mode."
 
@@ -121,7 +121,7 @@
     - nginx_worker_cpu_affinity.mask is defined
   ansible.builtin.assert:
     that:
-      - nginx_worker_cpu_affinity.mask | regex_search('^[0-1]+$')
+      - nginx_worker_cpu_affinity.mask is search('^[0-1]+$')
     fail_msg: "nginx_worker_cpu_affinity mask '{{ nginx_worker_cpu_affinity.mask }}' is not a valid CPU mask."
     success_msg: "nginx_worker_cpu_affinity mask '{{ nginx_worker_cpu_affinity.mask }}' is a valid CPU mask."
 
@@ -167,7 +167,7 @@
     - nginx_configure_logrotate
   ansible.builtin.assert:
     that:
-      - nginx_logrotate_mode | regex_search('^0[0-7]{3}$')
+      - nginx_logrotate_mode is search('^0[0-7]{3}$')
     fail_msg: "nginx_logrotate_mode '{{ nginx_logrotate_mode }}' is not a valid file mode."
     success_msg: "nginx_logrotate_mode '{{ nginx_logrotate_mode }}' is a valid file mode."
 

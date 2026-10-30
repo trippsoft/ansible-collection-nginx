@@ -2,14 +2,14 @@
 - name: Validate string in split_clients block
   ansible.builtin.assert:
     that:
-      - _nginx_split_clients_block.string | regex_search('^\$[a-zA-Z0-9_\{\}]+$')
+      - _nginx_split_clients_block.string is search('^\$[a-zA-Z0-9_\{\}]+$')
     fail_msg: "Directive 'string' in 'split_clients' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ _nginx_split_clients_block.string }}"
     success_msg: "Directive 'string' in 'split_clients' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ _nginx_split_clients_block.string }}"
 
 - name: Validate variable in split_clients block
   ansible.builtin.assert:
     that:
-      - _nginx_split_clients_block.variable | regex_search('^\$[a-zA-Z0-9_]+$')
+      - _nginx_split_clients_block.variable is search('^\$[a-zA-Z0-9_]+$')
     fail_msg: "Directive 'variable' in 'split_clients' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ _nginx_split_clients_block.variable }}"
     success_msg: "Directive 'variable' in 'split_clients' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ _nginx_split_clients_block.variable }}"
 

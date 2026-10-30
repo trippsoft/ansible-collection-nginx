@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2026-10-30
+
+### Role - oss
+
+- Changed fact gathering to use `ansible_facts` instead of direct variables.
+- Fixed `regex_search` conditionals to use `is search` instead.
+
 ## [1.3.0] - 2026-06-02
 
 ### Role - oss

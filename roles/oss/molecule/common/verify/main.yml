@@ -5,8 +5,8 @@
   tasks:
     - name: Set EL variables
       ansible.builtin.set_fact:
-        _nginx_user: "{{ 'nginx' if ansible_os_family == 'RedHat' else 'www-data' }}"
-        _nginx_group: "{{ 'nginx' if ansible_os_family == 'RedHat' else 'www-data' }}"
+        _nginx_user: "{{ 'nginx' if ansible_facts.os_family == 'RedHat' else 'www-data' }}"
+        _nginx_group: "{{ 'nginx' if ansible_facts.os_family == 'RedHat' else 'www-data' }}"
 
     - name: Set default nginx_user variable
       when:
@@ -59,7 +59,7 @@
 
     - name: Check if NGINX is installed
       when:
-        - ansible_os_family != 'RedHat' or
+        - ansible_facts.os_family != 'RedHat' or
           nginx_appstream_version is not defined
       become: true
       check_mode: true
@@ -78,7 +78,7 @@
 
     - name: Check if NGINX major version is installed
       when:
-        - ansible_os_family == 'RedHat'
+        - ansible_facts.os_family == 'RedHat'
         - nginx_appstream_version is defined
       become: true
       check_mode: true

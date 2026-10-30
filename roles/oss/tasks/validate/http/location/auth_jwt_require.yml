@@ -10,6 +10,6 @@
   loop: "{{ _nginx_auth_jwt_require.values }}"
   ansible.builtin.assert:
     that:
-      - item | regex_search('^\$[a-zA-Z0-9_-]+$')
+      - item is search('^\$[a-zA-Z0-9_-]+$')
     fail_msg: "Directive 'values' in 'auth_jwt_require' in location block in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ item }}"
     success_msg: "Directive 'values' in 'auth_jwt_require' in location block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item }}"

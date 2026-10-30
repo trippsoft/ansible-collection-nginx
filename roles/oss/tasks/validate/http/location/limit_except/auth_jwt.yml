@@ -16,7 +16,7 @@
     - _nginx_limit_except_block.auth_jwt.token is defined
   ansible.builtin.assert:
     that:
-      - _nginx_limit_except_block.auth_jwt.token | regex_search('^\$[a-zA-Z0-9_-]+$')
+      - _nginx_limit_except_block.auth_jwt.token is search('^\$[a-zA-Z0-9_-]+$')
     fail_msg: "Directive 'token' in 'auth_jwt' in limit_except block in '{{ _nginx_http_config_file.destination }}' is not a valid variable name."
     success_msg: "Directive 'token' in 'auth_jwt' in limit_except block in '{{ _nginx_http_config_file.destination }}' is valid."
 

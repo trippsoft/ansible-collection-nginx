@@ -5,8 +5,8 @@
     - item.response is defined
   ansible.builtin.assert:
     that:
-      - item.response | regex_search('^=[0-9]{3}$') or
-        item.response | regex_search('^=$')
+      - item.response is search('^=[0-9]{3}$') or
+        item.response is search('^=$')
     fail_msg: "Directive 'response' in 'error_page' in location if block in '{{ _nginx_http_config_file.destination }}' is not either '=' or '=XXX' where XXX is a 3-digit response code. Value: {{ item.response }}"
     success_msg: "Directive 'response' in 'error_page' in location if block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.response }}"
 
@@ -15,6 +15,6 @@
   ansible.builtin.assert:
     that:
       - item.uri is uri or
-        item.uri | regex_search('^@')
+        item.uri is search('^@')
     fail_msg: "Directive 'uri' in 'error_page' in location if block in '{{ _nginx_http_config_file.destination }}' is not either a reference to a location beginning with '@' or a valid URI. Value: {{ item.uri }}"
     success_msg: "Directive 'uri' in 'error_page' in location if block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.uri }}"

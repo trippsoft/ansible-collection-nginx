@@ -5,7 +5,7 @@
   pre_tasks:
     - name: Update apt cache
       when:
-        - ansible_os_family == 'Debian'
+        - ansible_facts.os_family == 'Debian'
       become: true
       ansible.builtin.apt:
         update_cache: true
@@ -14,13 +14,13 @@
       when:
         - nginx_user is not defined
       ansible.builtin.set_fact:
-        nginx_user: "{{ 'www-data' if ansible_os_family == 'Debian' else 'nginx' }}"
+        nginx_user: "{{ 'www-data' if ansible_facts.os_family == 'Debian' else 'nginx' }}"
 
     - name: Set NGINX group variable
       when:
         - nginx_group is not defined
       ansible.builtin.set_fact:
-        nginx_group: "{{ 'www-data' if ansible_os_family == 'Debian' else 'nginx' }}"
+        nginx_group: "{{ 'www-data' if ansible_facts.os_family == 'Debian' else 'nginx' }}"
 
     - name: Create NGINX group
       become: true
@@ -57,9 +57,9 @@
         cert_private_key_path: "{{ ssl_key_path }}"
         cert_private_key_owner: "{{ nginx_user }}"
         cert_private_key_group: "{{ nginx_group }}"
-        cert_common_name: "{{ ansible_fqdn }}"
+        cert_common_name: "{{ ansible_facts.fqdn }}"
         cert_subject_alternative_names:
-          - 'DNS:{{ ansible_fqdn }}'
+          - 'DNS:{{ ansible_facts.fqdn }}'
           - 'DNS:localhost'
           - 'IP:{{ ansible_host }}'
           - 'IP:127.0.0.1'

@@ -9,7 +9,7 @@ driver:
   parallel: true
 platforms:
   - name: linux
-    box: jtarpley/${MOLECULE_BOX:-rocky9_cis}
+    box: trippsc2/${MOLECULE_BOX:-rocky9_cis}
     memory: 2048
     cpus: 2
     provider_options:
@@ -22,9 +22,9 @@ provisioner:
     group_vars:
       subjects:
         ssl_cert_base_path: >-
-          {{ '/etc/ssl/certs' if ansible_os_family == 'Debian' else '/etc/pki/tls/certs' }}
+          {{ '/etc/ssl/certs' if ansible_facts.os_family == 'Debian' else '/etc/pki/tls/certs' }}
         ssl_key_base_path: >-
-          {{ '/etc/ssl/private' if ansible_os_family == 'Debian' else '/etc/pki/tls/private' }}
+          {{ '/etc/ssl/private' if ansible_facts.os_family == 'Debian' else '/etc/pki/tls/private' }}
         ssl_cert_path: "{{ ssl_cert_base_path }}/molecule.crt"
         ssl_key_path: "{{ ssl_key_base_path }}/molecule.key"
         nginx_tcp_ports:

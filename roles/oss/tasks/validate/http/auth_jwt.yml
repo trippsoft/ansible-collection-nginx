@@ -16,7 +16,7 @@
     - _nginx_http_config_file.auth_jwt.token is defined
   ansible.builtin.assert:
     that:
-      - _nginx_http_config_file.auth_jwt.token | regex_search('^\$[a-zA-Z0-9_-]+$')
+      - _nginx_http_config_file.auth_jwt.token is search('^\$[a-zA-Z0-9_-]+$')
     fail_msg: "Directive 'token' in 'auth_jwt' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name."
     success_msg: "Directive 'token' in 'auth_jwt' in '{{ _nginx_http_config_file.destination }}' is valid."
 
@@ -75,7 +75,7 @@
   loop: "{{ _nginx_http_config_file.auth_jwt_claim_set | default([]) }}"
   ansible.builtin.assert:
     that:
-      - item.variable | regex_search('^\$[a-zA-Z0-9_-]+$')
+      - item.variable is search('^\$[a-zA-Z0-9_-]+$')
     fail_msg: "Directive 'variable' in 'auth_jwt_claim_set' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ item.variable }}"
     success_msg: "Directive 'variable' in 'auth_jwt_claim_set' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.variable }}"
 
@@ -83,6 +83,6 @@
   loop: "{{ _nginx_http_config_file.auth_jwt_header_set | default([]) }}"
   ansible.builtin.assert:
     that:
-      - item.variable | regex_search('^\$[a-zA-Z0-9_-]+$')
+      - item.variable is search('^\$[a-zA-Z0-9_-]+$')
     fail_msg: "Directive 'variable' in 'auth_jwt_header_set' in '{{ _nginx_http_config_file.destination }}' is not a valid variable name. Value: {{ item.variable }}"
     success_msg: "Directive 'variable' in 'auth_jwt_header_set' in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.variable }}"

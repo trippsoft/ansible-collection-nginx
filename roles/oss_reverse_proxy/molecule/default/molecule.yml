@@ -1,6 +1,8 @@
 ---
 dependency:
   name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/requirements-${MOLECULE_ANSIBLE_VERSION:-2.16}.yml
 driver:
   name: vagrant
   provider:
@@ -9,7 +11,7 @@ driver:
   parallel: true
 platforms:
   - name: linux
-    box: jtarpley/${MOLECULE_BOX:-rocky9_cis}
+    box: trippsc2/${MOLECULE_BOX:-rocky9_cis}
     memory: 2048
     cpus: 2
     provider_options:
@@ -22,9 +24,9 @@ provisioner:
     group_vars:
       subjects:
         ssl_certificate_directory: >-
-          {{ '/etc/pki/tls/certs' if ansible_os_family == 'RedHat' else '/etc/ssl/certs' }}
+          {{ '/etc/pki/tls/certs' if ansible_facts.os_family == 'RedHat' else '/etc/ssl/certs' }}
         ssl_certificate_key_directory: >-
-          {{ '/etc/pki/tls/private' if ansible_os_family == 'RedHat' else '/etc/ssl/private' }}
+          {{ '/etc/pki/tls/private' if ansible_facts.os_family == 'RedHat' else '/etc/ssl/private' }}
         nginxproxy_ssl_stapling: false
         nginxproxy_ssl_stapling_verify: false
         nginxproxy_server_name: localhost

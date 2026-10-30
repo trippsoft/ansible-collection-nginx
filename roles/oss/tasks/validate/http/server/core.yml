@@ -5,8 +5,8 @@
     - item.response is defined
   ansible.builtin.assert:
     that:
-      - item.response | regex_search('^=[0-9]{3}$') or
-        item.response | regex_search('^=$')
+      - item.response is search('^=[0-9]{3}$') or
+        item.response is search('^=$')
     fail_msg: "Directive 'response' in 'error_page' in server block in '{{ _nginx_http_config_file.destination }}' is not either '=' or '=XXX' where XXX is a 3-digit response code. Value: {{ item.response }}"
     success_msg: "Directive 'response' in 'error_page' in server block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.response }}"
 
@@ -15,7 +15,7 @@
   ansible.builtin.assert:
     that:
       - item.uri is uri or
-        item.uri | regex_search('^@')
+        item.uri is search('^@')
     fail_msg: "Directive 'uri' in 'error_page' in server block in '{{ _nginx_http_config_file.destination }}' is not either a reference to a location beginning with '@' or a valid URI. Value: {{ item.uri }}"
     success_msg: "Directive 'uri' in 'error_page' in server block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.uri }}"
 
@@ -325,7 +325,7 @@
   ansible.builtin.assert:
     that:
       - item.address is ansible.utils.ip_address or
-        item.address | regex_search('^unix:')
+        item.address is search('^unix:')
     fail_msg: "Directive 'address' in 'listen' in server block in '{{ _nginx_http_config_file.destination }}' is not a valid IP address or UNIX socket. Value: {{ item.address }}"
     success_msg: "Directive 'address' in 'listen' in server block in '{{ _nginx_http_config_file.destination }}' is valid. Value: {{ item.address }}"
 
@@ -333,7 +333,7 @@
   loop: "{{ _nginx_server_block.listen | default([]) }}"
   when:
     - item.address is defined
-    - item.address | regex_search('^unix:')
+    - item.address is search('^unix:')
   ansible.builtin.assert:
     that:
       - item.port is not defined
